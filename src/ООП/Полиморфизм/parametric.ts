@@ -1,7 +1,4 @@
-class Person {
-    greeting() {
-        throw new Error("Method not implemented.");
-    } // Класс Человек
+class Person { // Класс Человек
     private _firstName;
     private _lastName;
     private _age;
@@ -11,6 +8,11 @@ class Person {
         this._firstName = firstName;
         this._lastName = lastName;
         this._age = age;
+    }
+
+    /* Создать функцию приветствие для каждого класса */
+    public greeting() {
+        console.log(`Привет я человек и меня зовут ${this._firstName}`)
     }
 
     public get fullName() {
@@ -59,6 +61,11 @@ class Employee extends Person { // Класс работник, наследуе
         this._number = number;
         this._serial = serial;
     }
+
+    /* Функция приветствие */
+    greeting() {
+        console.log(`Привет я работник и меня зовут ${this._firstName}`)
+    }
 }
 
 class Developer extends Employee { // Класс разработчик, наследуемся от Класса Employee через extends
@@ -70,7 +77,36 @@ class Developer extends Employee { // Класс разработчик, нас�
         this._level = level;
         this._language = language
     }
+
+    /* Функция приветствие */
+    greeting() {
+        console.log(`Привет я разработчик и меня зовут ${this._firstName}`)
+    }
 }
 
-const human = new Developer("Ivan", "Ivanov", 15, 25, 30, 504, "Senior", "Java");
-console.log(human.fullName);
+const person = new Person("Ivan", "Ivanov", 15)
+const employee = new Employee("Ivan", "Ivanov", 15, 25, 30, 504)
+const developer = new Developer("Ivan", "Ivanov", 15, 25, 30, 504, "Senior", "Java");
+
+// Эти вызова методов не совсем коректны (но они работают)
+// person.greeting()
+// employee.greeting()
+// developer.greeting()
+
+/* Можно сделать по другому */
+// Создать массив где есть person, employee, developer
+/* Массив типа Person[] */
+const personList: Person[] = [person, employee, developer]
+
+/* Фукнция массовое приветствие */
+// Работа с объектами где функция greeting работает по разному
+
+function massGreeting(persons: Person[]) {
+    for(let i = 0; i < persons.length; i++) {
+        const person = persons[i];
+        person.greeting()
+    }
+}
+
+/* Вызов функции с массивом */
+massGreeting(personList)
